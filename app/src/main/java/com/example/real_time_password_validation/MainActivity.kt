@@ -4,13 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.real_time_password_validation.ui.theme.RealtimePasswordValidationTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,7 +16,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RealtimePasswordValidationTheme {
-
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MyScreen()
+                }
             }
         }
     }
@@ -32,9 +34,25 @@ data class PasswordValidationState(
     val successful: Boolean = false
 )
 
-class validatePassword {
+class ValidatePassword {
 
     fun execute(password: String): PasswordValidationState {
+        val validateSpecialCharacter = validateSpecialCharacter(password)
+        val validateCapitalizedLetter = validateUppercase(password)
+        val validateMinimum = validateMinimum(password)
+
+        val hasError = listOf(
+            validateSpecialCharacter,
+            validateCapitalizedLetter,
+            validateMinimum
+        ).any { it }
+
+        return PasswordValidationState(
+            hasSpecialCharacter = validateSpecialCharacter,
+            hasUppercase = validateCapitalizedLetter,
+            hasMinimum = validateMinimum,
+            successful = hasError
+        )
 
     }
 
