@@ -13,7 +13,7 @@ This Android application provides real-time password validation using Jetpack Co
 
 ## Screenshots
 
-Upload soon...
+<img src="https://github.com/user-attachments/assets/63673596-b018-4814-ae5d-03df432758e1" alt="First Screenshot" style="width: 200px; height: auto;">
 
 ## Architecture
 
